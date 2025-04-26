@@ -1,0 +1,138 @@
+/* Sidebar container */
+body,
+html,
+#root {
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar {
+  width: 76px;
+  /* height: 982px; */
+  height: 727px;
+  border: 1px;
+  gap: 24px;
+  background-color: #ffffff;
+
+  /* background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-right: 1px solid #e0e0e0; */
+}
+
+/* Top logo area */
+.topLogo {
+  width: 64px;
+  height: 80px;
+  gap: 12px;
+  padding-top: 16px;
+  padding-right: 8px;
+  padding-bottom: 16px;
+  padding-left: 8px;
+
+  /* padding-top: 16px;
+  padding-right: 8px;
+  padding-bottom: 16px;
+  padding-left: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px; */
+}
+
+.logo {
+  width: 32px;
+  height: 32px;
+  /* background-color: #eeeeee; Placeholder color */
+  border-radius: 8px;
+}
+
+/* Main content area */
+.contentIcons {
+  width: 76px;
+  /* height: 766px; */
+  height: 572px;
+  gap: 24px;
+
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1; */
+}
+
+/* Icon groups */
+.topIcons {
+  width: 76px;
+  height: 236px;
+  gap: 4px;
+  padding-right: 8px;
+  padding-left: 8px;
+
+  /* display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center; */
+}
+
+.bottomIcons {
+  width: 76px;
+  height: 140px;
+  gap: 4px;
+  padding-right: 8px;
+  padding-left: 8px;
+}
+/* Individual icon wrapper */
+.icon {
+  width: 44px;
+  height: 44px;
+  gap: 12px;
+  border-radius: 99px;
+  padding: 12px;
+
+  /* width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s ease;
+  cursor: pointer; */
+}
+
+/* Icon image placeholder */
+.iconImage {
+  width: 20px;
+  height: 20px;
+  /* background-color: #999999; Placeholder color */
+  /* border-radius: 4px; */
+  gap: 12px;
+}
+
+/* Footer area for avatar/user icon */
+.footerIcon {
+  width: 72px;
+  height: 88px;
+  gap: 12px;
+  border-top: 1px;
+  padding-top: 16px;
+  padding-right: 8px;
+  padding-bottom: 16px;
+  padding-left: 8px;
+  border-top-width: 1px;
+
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 88px;
+  border-top: 1px solid #e0e0e0; */
+}
+
+.footerIconImage {
+  width: 40px;
+  height: 40px;
+  gap: 12px;
+  /* border-radius: 50%; */
+  /* background-color: #dddddd; Placeholder avatar */
+}

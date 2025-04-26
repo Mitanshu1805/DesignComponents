@@ -1,0 +1,65 @@
+.title {
+  width: 862px;
+  height: 65px;
+  /* position: absolute; */
+  top: 40px;
+  left: 101px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 26px;
+  padding-top: 14px;
+}
+
+.titleHeading {
+  width: 164px;
+  height: 65px;
+}
+
+.headingName {
+  width: 164px;
+  height: 39px;
+  font-family: Barlow;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 140%;
+  letter-spacing: 0%;
+}
+
+.titleDate {
+  width: 137px;
+  height: 22px;
+  position: absolute;
+  top: 43px;
+  font-family: Barlow;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: 0%;
+}
+.searchbar {
+  width: 390px;
+  height: 50px;
+  gap: 10px;
+  border-width: 1px;
+  border-style: solid; /* <-- Add this */
+  border-color: #ccc; /* <-- And this (light grey, or any color you want) */
+  border-radius: 16px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+}
+
+.searchIcon img {
+  width: 20px;
+  height: 20px;
+}
+
+.searchSpace {
+  width: 358px;
+  height: 20px;
+  display: flex; /* Required for justify-content to work */
+  justify-content: space-between;
+  align-items: center; /* Optional, for vertical centering */
+}

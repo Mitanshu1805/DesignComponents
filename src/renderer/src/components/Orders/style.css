@@ -1,0 +1,358 @@
+* {
+  box-sizing: border-box;
+}
+
+.tableContainer {
+  width: 495px;
+  height: 738px;
+  gap: 20px;
+}
+
+.tableNo {
+  width: 495px;
+  height: 36px;
+  display: flex;
+  justify-content: space-between;
+
+  border-radius: 8px;
+  padding-top: 6px;
+  padding-right: 10px;
+  padding-bottom: 6px;
+  padding-left: 10px;
+  background-color: #ff565e;
+}
+.tableNumber {
+  width: 80px;
+  height: 22px;
+  font-family: Lato;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: 0%;
+  color: #ffffff;
+}
+
+.ordersContainer {
+  width: 495px;
+  height: 657px;
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+}
+
+.orderContent {
+  width: 495px;
+  height: 541px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: Lato;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 140%;
+  letter-spacing: 0%;
+  padding-top: 14px;
+}
+
+.orders {
+  width: 495px;
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  flex-direction: column;
+  gap: 15px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.orderTypes {
+  width: 233px;
+  height: 34px;
+  gap: 8px;
+  display: flex;
+  flex-direction: row;
+}
+.dineIn {
+  width: 69px;
+  height: 34px;
+  gap: 10px;
+  border-radius: 8px;
+  padding-top: 7px;
+  padding-right: 12px;
+  padding-bottom: 7px;
+  padding-left: 12px;
+  background-color: #ff565e;
+}
+.dineInValue {
+  width: 45px;
+  height: 20px;
+  font-family: Lato;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 140%;
+  letter-spacing: 0%;
+  color: #ffffff;
+}
+.pickUp {
+  width: 72;
+  height: 34;
+  gap: 10px;
+  border-width: 1px;
+  border-radius: 8px;
+  padding-top: 7px;
+  padding-right: 12px;
+  padding-bottom: 7px;
+  padding-left: 12px;
+  background-color: #ffffff;
+}
+.pickUpValue {
+  width: 48px;
+  height: 20px;
+  font-family: Lato;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 140%;
+  letter-spacing: 0%;
+  color: #333f4c;
+}
+.delivery {
+  width: 76px;
+  height: 34px;
+  gap: 10px;
+  border-width: 1px;
+  border-radius: 8px;
+  padding-top: 7px;
+  padding-right: 12px;
+  padding-bottom: 7px;
+  padding-left: 12px;
+  background-color: #ffffff;
+}
+.deliveryValue {
+  width: 52px;
+  height: 20px;
+  font-family: Lato;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 140%;
+  letter-spacing: 0%;
+  color: #333f4c;
+}
+
+.header {
+  background-color: #ffffff;
+  width: 495px;
+  height: 40px;
+  border-width: 1px;
+  justify-content: space-between;
+  border-radius: 8px;
+  padding-top: 10px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+}
+.headerContent {
+  width: 436.34px;
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerName {
+  width: 87.41px;
+  height: 20px;
+  font-family: Lato;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 136%;
+  letter-spacing: 0%;
+  text-align: center;
+}
+
+.headerQuantity {
+  width: 70.6px;
+  height: 20px;
+  font-family: Lato;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 136%;
+  letter-spacing: 0%;
+  text-align: center;
+}
+
+.headerPrice {
+  width: 84.05px;
+  height: 20px;
+  font-family: Lato;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 136%;
+  letter-spacing: 0%;
+  text-align: center;
+}
+
+.orderValues {
+  width: 495px;
+  height: 354px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.item {
+  width: 100%;
+  height: 59px;
+
+  justify-content: space-between;
+  border-radius: 8px;
+  padding-top: 10px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.itemName {
+  width: 138px;
+  height: 39px;
+  gap: 10px;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 136%;
+  letter-spacing: 0%;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* white-space: nowrap; */
+}
+/* .itemQuantity {
+  width: 81px;
+  height: 26px;
+  gap: 10px;
+  border-radius: 4px;
+  background-color: #ff565e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+.itemQuantity {
+  width: 71px;
+  height: 22px;
+  gap: 7px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 5px;
+  padding-right: 5px;
+  padding-left: 5px;
+  background-color: #ffffff;
+  /* width: 113px;
+  height: 23px;
+  gap: 3px;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  text-overflow: ellipsis; */
+  /* white-space: nowrap; */
+}
+.minus {
+  width: 8px;
+  height: 22px;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 136%;
+  letter-spacing: 0%;
+  color: #333f4c;
+}
+.valueBox {
+  width: 28.000001907348633px;
+  height: 22px;
+  gap: 9px;
+  display: flex;
+  justify-content: center;
+}
+.value {
+  width: 10px;
+  height: 22px;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 136%;
+  letter-spacing: 0%;
+  color: #333f4c;
+}
+.plus {
+  width: 11px;
+  height: 22px;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 136%;
+  letter-spacing: 0%;
+  color: #333f4c;
+}
+.totalPrice {
+  width: 113px;
+  height: 23px;
+  gap: 3px;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* white-space: nowrap; */
+}
+
+.totalPriceValue {
+  width: 87px;
+  height: 23px;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 136%;
+  letter-spacing: 0%;
+}
+
+.timeDate {
+  width: 494px;
+  height: 44px;
+  gap: 12px;
+  display: flex;
+  flex-direction: row;
+  background-color: #ffffff;
+}
+
+.timeDateContent {
+  width: 438px;
+  height: 44px;
+  gap: 51px;
+  border-radius: 8px;
+  padding-top: 10px;
+  padding-right: 12px;
+  padding-bottom: 10px;
+  padding-left: 12px;
+  border-width: 1px;
+  display: flex;
+  flex-direction: row;
+}
+
+.timeDateBox {
+  width: 414px;
+  height: 24px;
+  justify-content: space-between;
+}
+
+.timeDateValue {
+  width: 266px;
+  height: 20px;
+  font-family: Lato;
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 136%;
+  letter-spacing: 0%;
+  text-align: center;
+}
