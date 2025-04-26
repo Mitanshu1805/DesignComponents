@@ -1,5 +1,10 @@
 // import React from 'react'
 import './style.css'
+import React from 'react'
+
+import { Fragment } from 'react'
+
+import Line from './Assets/Line 1701.png'
 
 const categories = [
   {
@@ -37,14 +42,22 @@ const categories = [
 
 const CategoryItems = () => {
   return (
-    <div className="layout">
-      <div className="categoryTab">
-        {categories.map((category, index) => (
-          <div className="categoryBox" key={index}>
-            <div className="categoryName">{category.name}</div>
-          </div>
-        ))}
-      </div>
+    // <div className="layout">
+    //   <div className="categoryTab">
+    //     {categories.map((category, index) => (
+    //       <div className="categoryBox" key={index}>
+    //         <div className="categoryName">{category.name}</div>
+    //       </div>
+    //     ))}
+    //   </div>
+    // </div>
+    <div className="categoryTab">
+      {categories.map((category, index) => (
+        <React.Fragment key={index}>
+          <div className="value">{category.name}</div>
+          <img src={Line} alt="line" />
+        </React.Fragment>
+      ))}
     </div>
   )
 }

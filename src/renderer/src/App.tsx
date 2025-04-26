@@ -10,7 +10,8 @@ import ItemList from './components/ItemList'
 function App(): React.JSX.Element {
   return (
     // <Orders />
-    <BillDetails />
+    // <BillDetails />
+    <CategoryList />
     // <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', border: '1px solid red' }}>
     //   <Sidebar />
 
