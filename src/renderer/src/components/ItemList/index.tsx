@@ -27,10 +27,10 @@ const ItemList = () => {
           ))}
         </div>
 
-        <div className="clearButtonWrapper">
+        <button className="clearButtonWrapper">
           <img src={ClearBtn} />
           {/* <button className="clearButton">CLEAR</button> */}
-        </div>
+        </button>
       </div>
     </div>
   )

@@ -1,0 +1,131 @@
+.categoryTab {
+  width: 110px;
+  height: 100vh;
+  gap: 15px;
+  border-width: 1px;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #ffffff;
+}
+
+.category {
+  width: 73px;
+  height: 25px;
+  gap: 18px;
+}
+
+.value {
+  width: 100%;
+  height: 40px; /* Adjusted to make button height appropriate */
+  font-family: Lato;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 140%;
+  letter-spacing: 0%;
+  color: #2d303e;
+  background-color: transparent; /* No background */
+  border: none; /* Remove default button border */
+  padding: 0; /* Remove padding */
+  text-align: left; /* Align text to the left */
+  cursor: pointer; /* Change cursor on hover */
+  transition: background-color 0.3s ease; /* Add transition effect */
+}
+
+/* .value:hover {
+  background-color: #f1f1f1; 
+} */
+
+.value:focus {
+  outline: none; /* Remove focus outline */
+}
+/* .value {
+  width: 73px;
+  height: 25px;
+  font-family: Lato;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 140%;
+  letter-spacing: 0%;
+  color: #2d303e;
+} */
+
+/* .itemName {
+    width: 51px;
+    height: 24px;
+    font-family: Lato;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 136%;
+    letter-spacing: 0%;
+    text-align: center;
+    text-transform: capitalize;
+    color: #2d303e;
+  } */
+
+/* * {
+    margin: 0;
+    padding: 0;
+  }
+  .categoryTab {
+    display: flex;
+    flex-direction: column; */
+/* flex-wrap: wrap; */
+/* gap: 0px; */
+/* justify-content: flex-start; */
+/* padding: 0px; */
+/* align-items: flex-start;
+    background-color: #f0f0f0;
+    width: 130px;
+    height: 100vh;
+  }
+  
+  .categoryBox { */
+/* width: 100px; */
+/* width: 132px;
+    height: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    gap: 12px;
+  }
+  
+  .categoryBox:hover { */
+/* background-color: #ff565e; */
+/* color: white; */
+/* }
+  
+  .image img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  .categoryName {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: capitalize;
+    font-family: Lato;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 136%;
+    letter-spacing: 0%;
+    text-align: center;
+    text-transform: capitalize;
+  }
+  
+  .content {
+    font-family: Lato, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 136%;
+    letter-spacing: 0%;
+    text-align: center;
+    text-transform: capitalize;
+    display: flex;
+    flex-direction: row;
+  } */

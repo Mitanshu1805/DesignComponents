@@ -45,28 +45,20 @@ const BillDetails = () => {
     //   </div>
     // </div>
     <div className="billDetailsContainer">
-      <div className="billDetailsValue">Bill Details </div>
+      <div className="billDetailsTitle">Bill Details</div>
+
       <div className="grandTotalContainer">
         <div className="grandTotalBox">
-          <div className="grandTotalPocket">
-            <div className="grandTotalValue">Grand Total</div>
-          </div>
+          <div className="grandTotalText">Grand Total</div>
           <div className="grandTotalPrice">$200</div>
         </div>
       </div>
-      <div className="kotPrintSave">
-        <div className="kot">
-          <div className="kotValue">KOT</div>
-        </div>
-        <div className="kotAndPrint">
-          <div className="kotAndPrintValue">KOT & Print</div>
-        </div>
-        <div className="save">
-          <div className="saveValue">Save</div>
-        </div>
-        <div className="saveAndPrint">
-          <div className="saveAndPrintValue">Save & Print</div>
-        </div>
+
+      <div className="buttonGroup">
+        <button className="billButton">KOT</button>
+        <button className="billButton">KOT & Print</button>
+        <button className="billButton">Save</button>
+        <button className="billButton">Save & Print</button>
       </div>
     </div>
   )

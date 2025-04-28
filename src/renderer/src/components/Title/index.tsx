@@ -15,7 +15,8 @@ const Title = () => {
             <img src={SearchIcon} alt="Search Icon" />
           </div>
 
-          <div className="searchSpace">Search for food name</div>
+          {/* <div className="searchSpace">Search for food name</div> */}
+          <input type="text" placeholder="Search for food name" className="searchInput" />
         </div>
       </div>
     </div>

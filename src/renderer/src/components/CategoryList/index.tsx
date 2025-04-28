@@ -1,5 +1,7 @@
 // import React from 'react'
-import './style.css'
+// import './style.css'
+// import styles from './CategoryList.modules.css'
+import styles from './CategoryList.module.css'
 import React from 'react'
 
 import { Fragment } from 'react'
@@ -51,10 +53,10 @@ const CategoryItems = () => {
     //     ))}
     //   </div>
     // </div>
-    <div className="categoryTab">
+    <div className={styles.categoryTab}>
       {categories.map((category, index) => (
         <React.Fragment key={index}>
-          <div className="value">{category.name}</div>
+          <button className={styles.value}>{category.name}</button>
           <img src={Line} alt="line" />
         </React.Fragment>
       ))}
