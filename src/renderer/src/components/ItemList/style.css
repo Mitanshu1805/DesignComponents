@@ -3,6 +3,17 @@
   padding: 0;
 }
 
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.layout {
+  display: flex;
+  height: 100vh; /* already you have it — good */
+}
+
 .categoryTab {
   display: flex;
   flex-direction: column;

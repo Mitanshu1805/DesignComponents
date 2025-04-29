@@ -13,6 +13,7 @@
   height: 36px;
   display: flex;
   justify-content: space-between;
+  border: 1px solid #e0e0e0;
 
   border-radius: 8px;
   padding-top: 6px;
@@ -37,6 +38,7 @@
   width: 495px;
   height: 657px;
   display: flex;
+
   gap: 20px;
   overflow: hidden;
 }
@@ -78,6 +80,7 @@
   height: 34px;
   gap: 10px;
   border-radius: 8px;
+  border: 1px solid #e0e0e0;
   padding-top: 7px;
   padding-right: 12px;
   padding-bottom: 7px;
@@ -85,6 +88,9 @@
   background-color: #ff565e;
   cursor: pointer;
 }
+/* .dineIn:hover {
+  background-color: #f1f5f9;
+} */
 .dineInValue {
   width: 45px;
   height: 20px;
@@ -95,11 +101,20 @@
   letter-spacing: 0%;
   color: #ffffff;
 }
+.dineIn:hover {
+  background-color: #f1f5f9;
+}
+
+.dineIn:hover .dineInValue {
+  color: #ff565e;
+}
+
 .pickUp {
   width: 72;
   height: 34;
   gap: 10px;
   border-width: 1px;
+  border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding-top: 7px;
   padding-right: 12px;
@@ -107,6 +122,9 @@
   padding-left: 12px;
   background-color: #ffffff;
   cursor: pointer;
+}
+.pickUp:hover {
+  background-color: #f1f5f9;
 }
 .pickUpValue {
   width: 48px;
@@ -123,6 +141,7 @@
   height: 34px;
   gap: 10px;
   border-width: 1px;
+  border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding-top: 7px;
   padding-right: 12px;
@@ -130,6 +149,9 @@
   padding-left: 12px;
   background-color: #ffffff;
   cursor: pointer;
+}
+.delivery:hover {
+  background-color: #f1f5f9;
 }
 .deliveryValue {
   width: 52px;
@@ -317,7 +339,8 @@
 }
 
 .totalPrice {
-  width: 113px;
+  padding-left: 52px;
+  width: 135px;
   height: 23px;
   gap: 3px;
   display: flex;

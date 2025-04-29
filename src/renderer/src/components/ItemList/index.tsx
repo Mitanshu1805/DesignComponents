@@ -13,24 +13,25 @@ const ItemList = () => {
   return (
     <div className="layout">
       <div className="mainContent">
-        <div className="menuItemGrid">
-          {items.map((item, index) => (
-            <div className="menuItemCard" key={index}>
-              <div className="menuItemImage">
-                <img src={item.image} alt={item.name} />
+        <div className="contentWrapper">
+          <div className="menuItemGrid">
+            {items.map((item, index) => (
+              <div className="menuItemCard" key={index}>
+                <div className="menuItemImage">
+                  <img src={item.image} alt={item.name} />
+                </div>
+                <div className="menuItemDetails">
+                  <div className="menuItemName">{item.name}</div>
+                  <div className="menuItemPrice">Price: ₹{item.price}</div>
+                </div>
               </div>
-              <div className="menuItemDetails">
-                <div className="menuItemName">{item.name}</div>
-                <div className="menuItemPrice">Price: ₹{item.price}</div>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        <button className="clearButtonWrapper">
-          <img src={ClearBtn} />
-          {/* <button className="clearButton">CLEAR</button> */}
-        </button>
+          <div className="clearButtonWrapper">
+            <img src={ClearBtn} />
+          </div>
+        </div>
       </div>
     </div>
   )

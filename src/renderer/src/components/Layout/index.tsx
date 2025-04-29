@@ -7,13 +7,36 @@ import ItemList from '../ItemList'
 
 function Layout(): React.JSX.Element {
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', border: '1px solid red' }}>
+    <div
+      style={{
+        display: 'flex',
+        height: '100vh',
+        overflow: 'hidden',
+        border: '1px solid red'
+      }}
+    >
       <Sidebar />
 
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden', height: '100%' }}>
+      {/* Main content container with horizontal scroll fallback */}
+      <div
+        style={{
+          display: 'flex',
+          flex: 1,
+          overflowX: 'auto',
+          height: '100%'
+        }}
+      >
         {/* Left: Title + Category + Items */}
-        <div style={{ display: 'flex', flexDirection: 'column', flex: 1.4, height: '100%' }}>
-          <div style={{ height: '60px', flexShrink: 0 }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            flex: '1 1 0%',
+            height: '100%',
+            minWidth: '0' // Important to allow flex shrinking
+          }}
+        >
+          <div style={{ height: '70px', flexShrink: 0, minWidth: 0, overflow: 'hidden' }}>
             <Title />
           </div>
 
@@ -23,37 +46,35 @@ function Layout(): React.JSX.Element {
               flex: 1,
               overflow: 'hidden',
               gap: '16px',
-              padding: '16px'
+              padding: '16px',
+              minWidth: 0 // prevents overflow due to flex children
             }}
           >
+            {/* Category List */}
             <div
               style={{
-                // width: '145px',
-                // minWidth: '140px',
-                // background: '#f1f1f1',
                 borderRadius: '10px',
-                // padding: '8px',
+                height: '100%',
                 overflowY: 'auto',
-                flexShrink: 0
-                // height: '100%'
+                flexShrink: 0,
+                width: '145px', // fixed width
+                minWidth: '120px'
               }}
             >
-              <div>
-                <CategoryList />
-              </div>
+              <CategoryList />
             </div>
 
+            {/* Item List */}
             <div
               style={{
                 flex: 1,
                 display: 'flex',
                 flexDirection: 'column',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                minWidth: 0
               }}
             >
-              <div style={{ flex: 1 }}>
-                <ItemList />
-              </div>
+              <ItemList />
             </div>
           </div>
         </div>
@@ -61,13 +82,15 @@ function Layout(): React.JSX.Element {
         {/* Right: Orders + BillDetails */}
         <div
           style={{
-            flex: 0.8,
+            flex: '0 1 495px',
+            // minWidth: '280px',
+            minWidth: '495px',
+            maxWidth: '650px',
             display: 'flex',
             flexDirection: 'column',
-
             padding: '12px',
-            borderLeft: '1px solid #ddd'
-            // overflow: 'hidden'
+            borderLeft: '1px solid #ddd',
+            overflow: 'hidden'
           }}
         >
           <div
@@ -76,14 +99,19 @@ function Layout(): React.JSX.Element {
               overflowY: 'auto',
               borderBottom: '1px solid #ddd',
               paddingBottom: '12px',
-              paddingRight: '16px'
-              // background: '#f9f9f9'
+              paddingRight: '16px',
+              minHeight: 0 // ensure proper vertical overflow
             }}
           >
             <Orders />
           </div>
 
-          <div style={{ flexShrink: 0, paddingTop: '16px' }}>
+          <div
+            style={{
+              flexShrink: 0,
+              paddingTop: '16px'
+            }}
+          >
             <BillDetails />
           </div>
         </div>
@@ -91,4 +119,5 @@ function Layout(): React.JSX.Element {
     </div>
   )
 }
+
 export default Layout

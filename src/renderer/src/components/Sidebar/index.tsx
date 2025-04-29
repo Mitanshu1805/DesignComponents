@@ -16,50 +16,40 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="topLogo">
         <img src={Top} />
-        {/* <div className="logo"></div> */}
       </div>
       <div className="contentIcons">
         <div className="topIcons">
-          <div className="icon">
+          <button className="icon">
             <img src={Nav1} />
-            {/* <div className="iconImage"></div> */}
-          </div>
-          <div className="icon">
+          </button>
+          <button className="icon">
             <img src={Nav2} />
-            {/* <div className="iconImage"></div> */}
-          </div>
-          <div className="icon">
+          </button>
+          <button className="icon">
             <img src={Nav3} />
-            {/* <div className="iconImage"></div> */}
-          </div>
-          <div className="icon">
+          </button>
+          <button className="icon">
             <img src={Nav4} />
-            {/* <div className="iconImage"></div> */}
-          </div>
-          <div className="icon">
+          </button>
+          <button className="icon">
             <img src={Nav5} />
-            {/* <div className="iconImage"></div> */}
-          </div>
+          </button>
         </div>
         <div className="bottomIcons">
-          <div className="icon">
+          <button className="icon">
             <img src={Nav6} />
-            {/* <div className="iconImage"></div> */}
-          </div>
-          <div className="icon">
+          </button>
+          <button className="icon">
             <img src={Nav7} />
-            {/* <div className="iconImage"></div> */}
-          </div>
-          <div className="icon">
+          </button>
+          <button className="icon">
             <img src={Nav8} />
-            {/* <div className="iconImage"></div> */}
-          </div>
+          </button>
         </div>
       </div>
 
       <div className="footerIcon">
         <img src={Inner} />
-        {/* <div className="footerIconImage"></div> */}
       </div>
     </div>
   )
