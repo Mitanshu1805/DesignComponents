@@ -3,7 +3,7 @@ import './style.css'
 import OilDabeli from './Assets/Ellipse 5.png'
 import ClearBtn from './Assets/Frame 1321315148.png'
 
-const items = Array(12).fill({
+const items = Array(15).fill({
   name: 'Oil Dabeli',
   price: 15,
   image: OilDabeli

@@ -4,7 +4,10 @@
 
 .tableContainer {
   width: 495px;
-  height: 738px;
+  /* height: 738px; */
+  min-height: 0;
+  /* overflow-y: auto; */
+  /* height: 100%; */
   gap: 20px;
 }
 
@@ -36,17 +39,23 @@
 
 .ordersContainer {
   width: 495px;
-  height: 657px;
+  /* height: 657px; */
+  /* height: 100vh; */
   display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* overflow-y: auto; */
 
   gap: 20px;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .orderContent {
   width: 495px;
-  height: 541px;
+  /* height: 541px; */
+  /* height: 100vh; */
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 20px;
   font-family: Lato;
@@ -57,15 +66,38 @@
   padding-top: 14px;
 }
 
+.tableDropdown {
+  width: 495px;
+  /* background-color: white; */
+  background-color: #ff565e;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-top: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tableOption {
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.tableOption:hover {
+  background-color: #f5f5f5;
+  color: #ff565e;
+}
+
 .orders {
   width: 495px;
-  height: 380px;
+  /* height: 380px; */
+  /* height: 100vh; */
   display: flex;
+  flex: 1;
   flex-direction: column;
-  flex-direction: column;
+  /* flex-direction: column; */
   gap: 15px;
-  overflow-y: hidden;
-  overflow-x: hidden;
+  /* overflow-y: auto; */
+  overflow: hidden;
 }
 
 .orderTypes {
@@ -220,9 +252,10 @@
 .orderValues {
   width: 495px;
   height: 354px;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  /* gap: 10px; */
 }
 
 .item {
@@ -275,12 +308,12 @@
 .itemQuantity {
   width: 71px;
   height: 22px;
-  gap: 7px;
+  /* gap: 7px; */
   display: flex;
   flex-direction: row;
   border-radius: 5px;
-  padding-right: 5px;
-  padding-left: 5px;
+  /* padding-right: 5px; */
+  /* padding-left: 5px; */
   background-color: #ffffff;
   /* width: 113px;
     height: 23px;
@@ -293,7 +326,7 @@
 }
 .minus {
   cursor: pointer;
-  width: 8px;
+  width: 32px;
   height: 22px;
   font-family: Inter;
   font-weight: 400;
@@ -302,6 +335,7 @@
   letter-spacing: 0%;
   color: #333f4c;
   user-select: none;
+  padding-left: 10px;
 }
 .valueBox {
   width: 28.000001907348633px;
@@ -322,7 +356,7 @@
 }
 .plus {
   cursor: pointer;
-  width: 11px;
+  width: 32px;
   height: 22px;
   font-family: Inter;
   font-weight: 400;
@@ -331,6 +365,7 @@
   letter-spacing: 0%;
   color: #333f4c;
   user-select: none;
+  padding-left: 7px;
 }
 
 .minus:hover,

@@ -1,6 +1,6 @@
 .categoryTab {
   width: 110px;
-  height: 100vh;
+  height: 85vh;
   gap: 15px;
   border-width: 1px;
   border-radius: 8px;
@@ -29,6 +29,9 @@
   text-align: left; /* Align text to the left */
   cursor: pointer; /* Change cursor on hover */
   transition: background-color 0.3s ease; /* Add transition effect */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* .value:hover {

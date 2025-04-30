@@ -12,7 +12,8 @@ function Layout(): React.JSX.Element {
         display: 'flex',
         height: '100vh',
         overflow: 'hidden',
-        border: '1px solid red'
+        border: '1px solid red',
+        backgroundColor: '#fffdf7'
       }}
     >
       <Sidebar />
@@ -45,7 +46,7 @@ function Layout(): React.JSX.Element {
               display: 'flex',
               flex: 1,
               overflow: 'hidden',
-              gap: '16px',
+              // gap: '16px',
               padding: '16px',
               minWidth: 0 // prevents overflow due to flex children
             }}
@@ -57,7 +58,7 @@ function Layout(): React.JSX.Element {
                 height: '100%',
                 overflowY: 'auto',
                 flexShrink: 0,
-                width: '145px', // fixed width
+                // width: '145px',
                 minWidth: '120px'
               }}
             >
@@ -82,10 +83,10 @@ function Layout(): React.JSX.Element {
         {/* Right: Orders + BillDetails */}
         <div
           style={{
-            flex: '0 1 495px',
+            flex: '0 0 36%',
             // minWidth: '280px',
-            minWidth: '495px',
-            maxWidth: '650px',
+            minWidth: '200px',
+            // maxWidth: '650px',
             display: 'flex',
             flexDirection: 'column',
             padding: '12px',
@@ -96,10 +97,11 @@ function Layout(): React.JSX.Element {
           <div
             style={{
               flex: 1,
-              overflowY: 'auto',
-              borderBottom: '1px solid #ddd',
-              paddingBottom: '12px',
-              paddingRight: '16px',
+              overflowY: 'hidden',
+              // borderBottom: '1px solid #ddd',
+              // paddingBottom: '12px',
+              // paddingRight: '16px',
+              boxSizing: 'border-box',
               minHeight: 0 // ensure proper vertical overflow
             }}
           >

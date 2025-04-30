@@ -42,6 +42,8 @@ const Orders = () => {
     console.log('delete item btn clicked')
   }
 
+  const [showTableDropdown, setShowTableDropdown] = useState(false)
+
   const orders = [
     { id: 'item1', name: 'CHESSE DABELI', price: 45 },
     { id: 'item2', name: 'PAV BHAJI', price: 50 },
@@ -58,12 +60,21 @@ const Orders = () => {
 
   return (
     <div className="tableContainer">
-      <button className="tableNo">
+      <button className="tableNo" onClick={() => setShowTableDropdown((prev) => !prev)}>
         <div className="tableNumber">Table No: 1</div>
         <div className="downArrow">
           <img src={DownArrow2} alt="down arrow" />
         </div>
       </button>
+      {showTableDropdown && (
+        <div className="tableDropdown">
+          <div className="tableOption">Table No: 2</div>
+          <div className="tableOption">Table No: 3</div>
+          <div className="tableOption">Table No: 4</div>
+          {/* Add more tables as needed */}
+        </div>
+      )}
+
       <div className="ordersContainer">
         <div className="orderContent">
           Orders #34562
