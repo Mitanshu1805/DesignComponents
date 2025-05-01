@@ -7,7 +7,7 @@
   /* height: 738px; */
   min-height: 0;
   /* overflow-y: auto; */
-  /* height: 100%; */
+  height: 100%;
   gap: 20px;
 }
 
@@ -117,7 +117,7 @@
   padding-right: 12px;
   padding-bottom: 7px;
   padding-left: 12px;
-  background-color: #ff565e;
+  background-color: #ffffff;
   cursor: pointer;
 }
 /* .dineIn:hover {
@@ -131,15 +131,16 @@
   font-size: 14px;
   line-height: 140%;
   letter-spacing: 0%;
-  color: #ffffff;
+  /* color: #333f4c; */
 }
-.dineIn:hover {
-  background-color: #f1f5f9;
-}
-
-.dineIn:hover .dineInValue {
+/* .dineIn:hover {
   color: #ff565e;
-}
+  background-color: #f1f5f9;
+} */
+
+/* .dineIn:hover .dineInValue {
+  color: #ff565e;
+} */
 
 .pickUp {
   width: 72;
@@ -155,9 +156,10 @@
   background-color: #ffffff;
   cursor: pointer;
 }
-.pickUp:hover {
+/* .pickUp:hover {
+  color: #ff565e;
   background-color: #f1f5f9;
-}
+} */
 .pickUpValue {
   width: 48px;
   height: 20px;
@@ -166,7 +168,7 @@
   font-size: 14px;
   line-height: 140%;
   letter-spacing: 0%;
-  color: #333f4c;
+  /* color: #333f4c; */
 }
 .delivery {
   width: 76px;
@@ -182,9 +184,10 @@
   background-color: #ffffff;
   cursor: pointer;
 }
-.delivery:hover {
+/* .delivery:hover {
+  color: #ff565e;
   background-color: #f1f5f9;
-}
+} */
 .deliveryValue {
   width: 52px;
   height: 20px;
@@ -193,7 +196,12 @@
   font-size: 14px;
   line-height: 140%;
   letter-spacing: 0%;
-  color: #333f4c;
+  /* color: #333f4c; */
+}
+
+.active {
+  background-color: #ff565e;
+  color: #f1f5f9;
 }
 
 .header {
@@ -252,6 +260,7 @@
 .orderValues {
   width: 495px;
   height: 354px;
+  /* height: 655px; */
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -344,7 +353,7 @@
   display: flex;
   justify-content: center;
 }
-.value {
+.quantityValue {
   width: 10px;
   height: 22px;
   font-family: Inter;

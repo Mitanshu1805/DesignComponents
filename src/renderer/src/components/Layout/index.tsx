@@ -1,11 +1,46 @@
+import React, { useState } from 'react'
 import Sidebar from '../Sidebar'
 import Title from '../Title'
 import Orders from '../Orders'
 import BillDetails from '../BillDetails'
 import CategoryList from '../CategoryList'
 import ItemList from '../ItemList'
+import ParentComponent from '../CategoryItemSection/ParentComponent'
+
+type Item = {
+  id: number
+  name: string
+  price: string
+  categoryId: number
+}
+const allItems = [
+  { id: 1, name: 'Dabeli Special', price: '15', categoryId: 1 },
+  { id: 2, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
+  { id: 2, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
+  { id: 2, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
+  { id: 2, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
+  { id: 2, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
+  { id: 2, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
+  { id: 3, name: 'Vadapav Classic', price: '15', categoryId: 2 },
+  { id: 3, name: 'Vadapav Classic', price: '15', categoryId: 2 },
+  { id: 3, name: 'Vadapav Classic', price: '15', categoryId: 2 },
+  { id: 3, name: 'Vadapav Classic', price: '15', categoryId: 2 }
+
+  // Add more items if you want
+]
 
 function Layout(): React.JSX.Element {
+  const [selectedCategoryId, setSelectedCategoryId] = useState(1)
+
+  const filteredItems = allItems.filter((item) => item.categoryId === selectedCategoryId)
+
+  const [orderItems, setOrderItems] = useState<Item[]>([])
+
+  const handleItemClick = (item) => {
+    setOrderItems((prevOrder) => [...prevOrder, item]) // add item to order list
+    console.log('order items:>>', orderItems)
+  }
+  // const [orderItems, setOrderItems] = useState<Item[]>([])
   return (
     <div
       style={{
@@ -52,30 +87,34 @@ function Layout(): React.JSX.Element {
             }}
           >
             {/* Category List */}
-            <div
-              style={{
-                borderRadius: '10px',
-                height: '100%',
-                overflowY: 'auto',
-                flexShrink: 0,
-                // width: '145px',
-                minWidth: '120px'
-              }}
-            >
-              <CategoryList />
-            </div>
+            <div style={{ display: 'flex', flex: 1, overflow: 'hidden', minWidth: 0 }}>
+              <div
+                style={{
+                  borderRadius: '10px',
+                  height: '100%',
+                  overflowY: 'auto',
+                  flexShrink: 0,
+                  minWidth: '120px'
+                }}
+              >
+                <CategoryList
+                  selectedCategoryId={selectedCategoryId}
+                  setSelectedCategoryId={setSelectedCategoryId}
+                />
+              </div>
 
-            {/* Item List */}
-            <div
-              style={{
-                flex: 1,
-                display: 'flex',
-                flexDirection: 'column',
-                overflow: 'hidden',
-                minWidth: 0
-              }}
-            >
-              <ItemList />
+              <div
+                style={{
+                  flex: 1,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  overflow: 'hidden',
+                  minWidth: 0
+                }}
+              >
+                <ItemList items={filteredItems} onItemClick={handleItemClick} />
+              </div>
+              {/* <Orders orderItems={orderItems || []} /> */}
             </div>
           </div>
         </div>
@@ -105,7 +144,7 @@ function Layout(): React.JSX.Element {
               minHeight: 0 // ensure proper vertical overflow
             }}
           >
-            <Orders />
+            <Orders orderItems={orderItems || []} />
           </div>
 
           <div
