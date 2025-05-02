@@ -7,6 +7,7 @@ import BillDetails from './components/BillDetails'
 import CategoryList from './components/CategoryList'
 import ItemList from './components/ItemList'
 import Layout from './components/Layout/index'
+import OrdersLayout from './ordersPageComp/Layout'
 
 function App(): React.JSX.Element {
   return (
@@ -15,6 +16,7 @@ function App(): React.JSX.Element {
     // <CategoryList />
     // <ItemList />
     <Layout />
+    // <OrdersLayout />
     // <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', border: '1px solid red' }}>
     //   <Sidebar />
 

@@ -1,0 +1,140 @@
+/* Main container */
+.orderDetailsContainer {
+  width: 443px;
+  padding: 18px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.orderDetailsBox {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.headerContainer .upperInfo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.numberBtn {
+  background-color: #ff565e;
+  color: #fff;
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.nameAndOrder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.nameValue {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.orderValue {
+  font-size: 12px;
+  color: #777;
+}
+
+.readyOrNotInfo {
+  text-align: right;
+}
+
+.readyBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #28a745;
+  font-weight: 600;
+}
+
+.tickIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.readyValue {
+  font-size: 12px;
+  color: #28a745;
+}
+
+.dateAndTimeBox {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #555;
+}
+
+.detailsHeader,
+.detailsRow,
+.subTotalContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.detailsHeader {
+  font-weight: 600;
+}
+.qtyAndItems {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.qtyAndItemsValues {
+  display: flex;
+  gap: 20px;
+}
+
+.qtyValue {
+  width: 30px;
+}
+
+.subTotalContainer {
+  font-weight: 600;
+}
+
+.footerBtnContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.iconBtn {
+  width: 64px;
+  height: 64px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.generateBillBtn {
+  flex: 1;
+  background-color: #ff565e;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.generateBillBtn:hover {
+  background-color: #e14c55;
+}

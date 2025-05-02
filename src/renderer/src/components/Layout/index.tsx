@@ -16,15 +16,15 @@ type Item = {
 const allItems = [
   { id: 1, name: 'Dabeli Special', price: '15', categoryId: 1 },
   { id: 2, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
-  { id: 2, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
-  { id: 2, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
-  { id: 2, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
-  { id: 2, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
-  { id: 2, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
-  { id: 3, name: 'Vadapav Classic', price: '15', categoryId: 2 },
-  { id: 3, name: 'Vadapav Classic', price: '15', categoryId: 2 },
-  { id: 3, name: 'Vadapav Classic', price: '15', categoryId: 2 },
-  { id: 3, name: 'Vadapav Classic', price: '15', categoryId: 2 }
+  { id: 3, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
+  { id: 4, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
+  { id: 5, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
+  { id: 6, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
+  { id: 7, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
+  { id: 8, name: 'Vadapav Classic', price: '15', categoryId: 2 },
+  { id: 9, name: 'Vadapav Classic', price: '15', categoryId: 2 },
+  { id: 10, name: 'Vadapav Classic', price: '15', categoryId: 2 },
+  { id: 11, name: 'Vadapav Classic', price: '15', categoryId: 2 }
 
   // Add more items if you want
 ]

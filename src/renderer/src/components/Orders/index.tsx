@@ -20,7 +20,6 @@ const Orders = ({ orderItems }: OrdersProps) => {
   const safeOrderItems = orderItems || []
   const [quantities, setQuantities] = useState<Record<string, number>>({})
   const [showTableDropdown, setShowTableDropdown] = useState(false)
-
   const [selectedOrderTypes, setSelectedOrderTypes] = useState<string[]>([])
 
   const handleOrderTypeClick = (type: string) => {
