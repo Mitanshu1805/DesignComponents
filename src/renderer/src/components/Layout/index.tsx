@@ -35,11 +35,41 @@ function Layout(): React.JSX.Element {
   const filteredItems = allItems.filter((item) => item.categoryId === selectedCategoryId)
 
   const [orderItems, setOrderItems] = useState<Item[]>([])
+  const [quantities, setQuantities] = useState<Record<string, number>>({})
+
+  const handleRemoveItem = (itemId: string | number) => {
+    setOrderItems((prev) => prev.filter((item) => item.id !== itemId))
+  }
+
+  const handleClearItems = () => {
+    // Clear all items from orders list
+    setOrderItems([])
+    setQuantities({})
+  }
+
+  // const handleItemClick = (item) => {
+  //   setOrderItems((prevOrder) => [...prevOrder, item]) // add item to order list
+  //   console.log('order items:>>', orderItems)
+  // }
 
   const handleItemClick = (item) => {
-    setOrderItems((prevOrder) => [...prevOrder, item]) // add item to order list
-    console.log('order items:>>', orderItems)
+    setOrderItems((prevOrder) => {
+      const exists = prevOrder.some((i) => i.id === item.id)
+      if (!exists) {
+        return [...prevOrder, item] // Add only once
+      }
+      return prevOrder // Do not duplicate
+    })
+
+    setQuantities((prevQuantities) => {
+      const idKey = item.id.toString()
+      return {
+        ...prevQuantities,
+        [idKey]: (prevQuantities[idKey] || 0) + 1
+      }
+    })
   }
+
   // const [orderItems, setOrderItems] = useState<Item[]>([])
   return (
     <div
@@ -112,7 +142,11 @@ function Layout(): React.JSX.Element {
                   minWidth: 0
                 }}
               >
-                <ItemList items={filteredItems} onItemClick={handleItemClick} />
+                <ItemList
+                  items={filteredItems}
+                  onItemClick={handleItemClick}
+                  onClearItems={handleClearItems}
+                />
               </div>
               {/* <Orders orderItems={orderItems || []} /> */}
             </div>
@@ -144,7 +178,13 @@ function Layout(): React.JSX.Element {
               minHeight: 0 // ensure proper vertical overflow
             }}
           >
-            <Orders orderItems={orderItems || []} />
+            {/* <Orders orderItems={orderItems || []} /> */}
+            <Orders
+              orderItems={orderItems}
+              quantities={quantities}
+              setQuantities={setQuantities}
+              onRemoveItem={handleRemoveItem}
+            />
           </div>
 
           <div

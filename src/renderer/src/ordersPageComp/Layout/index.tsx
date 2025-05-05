@@ -15,11 +15,13 @@ function Layout(): React.JSX.Element {
 
         <div className="ordersGrid">
           <OrderDetails />
-          {/* <OrderDetails />
           <OrderDetails />
           <OrderDetails />
           <OrderDetails />
-          <OrderDetails /> */}
+          <OrderDetails />
+          <OrderDetails />
+          <OrderDetails />
+          <OrderDetails />
         </div>
       </div>
     </div>

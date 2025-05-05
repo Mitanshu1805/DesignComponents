@@ -15,8 +15,8 @@ function App(): React.JSX.Element {
     // <BillDetails />
     // <CategoryList />
     // <ItemList />
-    <Layout />
-    // <OrdersLayout />
+    // <Layout />
+    <OrdersLayout />
     // <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', border: '1px solid red' }}>
     //   <Sidebar />
 

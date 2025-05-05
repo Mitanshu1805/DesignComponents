@@ -3,7 +3,7 @@ import './style.css'
 import OilDabeli from './Assets/Ellipse 5.png'
 import ClearBtn from './Assets/Frame 1321315148.png'
 
-const ItemList = ({ items, onItemClick }) => {
+const ItemList = ({ items, onItemClick, onClearItems }) => {
   return (
     <div className="layout">
       <div className="mainContent">
@@ -29,7 +29,7 @@ const ItemList = ({ items, onItemClick }) => {
           )}
 
           <div className="clearButtonWrapper">
-            <img src={ClearBtn} alt="Clear" />
+            <img src={ClearBtn} alt="Clear" onClick={onClearItems} />
           </div>
         </div>
       </div>

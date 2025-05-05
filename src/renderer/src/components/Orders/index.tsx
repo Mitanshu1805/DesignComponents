@@ -14,11 +14,14 @@ type OrderItem = {
 
 type OrdersProps = {
   orderItems: OrderItem[]
+  quantities: Record<string, number>
+  setQuantities: React.Dispatch<React.SetStateAction<Record<string, number>>>
+  onRemoveItem: (itemId: string | number) => void
 }
 
-const Orders = ({ orderItems }: OrdersProps) => {
+const Orders = ({ orderItems, quantities, setQuantities, onRemoveItem }: OrdersProps) => {
   const safeOrderItems = orderItems || []
-  const [quantities, setQuantities] = useState<Record<string, number>>({})
+  // const [quantities, setQuantities] = useState<Record<string, number>>({})
   const [showTableDropdown, setShowTableDropdown] = useState(false)
   const [selectedOrderTypes, setSelectedOrderTypes] = useState<string[]>([])
 
@@ -31,28 +34,61 @@ const Orders = ({ orderItems }: OrdersProps) => {
     )
   }
 
+  // useEffect(() => {
+  //   const initialQuantities: Record<string, number> = {}
+  //   safeOrderItems.forEach((item) => {
+  //     const idKey = item.id.toString()
+  //     initialQuantities[idKey] = quantities[idKey] ?? 1
+  //   })
+  //   setQuantities(initialQuantities)
+  // }, [safeOrderItems])
   useEffect(() => {
-    const initialQuantities: Record<string, number> = {}
-    safeOrderItems.forEach((item) => {
-      const idKey = item.id.toString()
-      initialQuantities[idKey] = quantities[idKey] ?? 1
+    setQuantities((prevQuantities) => {
+      const newQuantities = { ...prevQuantities }
+      safeOrderItems.forEach((item) => {
+        const idKey = item.id.toString()
+        if (!(idKey in newQuantities)) {
+          newQuantities[idKey] = 1 // ← only set to 1 if it doesn’t exist
+        }
+      })
+      return newQuantities
     })
-    setQuantities(initialQuantities)
   }, [safeOrderItems])
 
   const handleQuantityChange = (itemId: string | number, operation: 'increment' | 'decrement') => {
     const idKey = itemId.toString()
+
     setQuantities((prevState) => {
       const currentQuantity = prevState[idKey] ?? 1
-      const newQuantity =
-        operation === 'increment'
-          ? currentQuantity + 1
-          : currentQuantity > 1
-            ? currentQuantity - 1
-            : 1
-      return { ...prevState, [idKey]: newQuantity }
+
+      if (operation === 'decrement') {
+        if (currentQuantity <= 1) {
+          // Call the onRemoveItem callback to remove the item from orderItems
+          onRemoveItem(itemId)
+        } else {
+          return { ...prevState, [idKey]: currentQuantity - 1 }
+        }
+      } else if (operation === 'increment') {
+        return { ...prevState, [idKey]: currentQuantity + 1 }
+      }
+
+      return prevState
     })
   }
+
+  // const handleQuantityChange = (itemId: string | number, operation: 'increment' | 'decrement') => {
+  //   const idKey = itemId.toString()
+  //   setQuantities((prevState) => {
+  //     const currentQuantity = prevState[idKey] ?? 1
+  //     const newQuantity =
+  //       operation === 'increment'
+  //         ? currentQuantity + 1
+  //         : currentQuantity > 1
+  //           ? currentQuantity - 1
+  //           : 1
+  //     return { ...prevState, [idKey]: newQuantity }
+  //   })
+  // }
 
   const handleEditPrice = () => {
     console.log('edit price btn clicked')
