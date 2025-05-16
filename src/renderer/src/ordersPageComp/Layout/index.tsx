@@ -22,6 +22,7 @@ function Layout(): React.JSX.Element {
           <OrderDetails />
           <OrderDetails />
           <OrderDetails />
+          <OrderDetails />
         </div>
       </div>
     </div>

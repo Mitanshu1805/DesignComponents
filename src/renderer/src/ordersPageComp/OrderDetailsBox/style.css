@@ -1,6 +1,6 @@
 /* Main container */
 .orderDetailsContainer {
-  width: 443px;
+  width: 460px;
   max-width: 100%;
   box-sizing: border-box;
   padding: 18px;
@@ -15,7 +15,7 @@
   gap: 15px;
 }
 
-.headerContainer .upperInfo {
+.headerContainerOrder .upperInfo {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -63,13 +63,20 @@
 }
 
 .orderValue {
-  font-size: 12px;
-  color: #777;
+  /* font-size: 12px;
+  color: #777; */
+  color: #333f4c;
+  font-family: Lato;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
 }
 
 .readyOrNotInfo {
   text-align: right;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .readyBadge {
@@ -88,9 +95,51 @@
 .readyValue {
   font-size: 12px;
   color: #28a745;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.readyDropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.readyValue {
+  font-size: 12px;
+  color: #28a745;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  min-width: 160px;
+}
+
+.dropdownItem {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+
+.dropdownItem:hover {
+  background-color: #f2f2f2;
 }
 
 .dateAndTimeBox {
+  padding-top: 14px;
   display: flex;
   justify-content: space-between;
   font-size: 14px;

@@ -14,7 +14,9 @@
 
 .ordersGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(337px, 1fr));
   gap: 20px;
   margin-top: 20px;
+  padding-top: 20px;
+  overflow-y: auto;
 }

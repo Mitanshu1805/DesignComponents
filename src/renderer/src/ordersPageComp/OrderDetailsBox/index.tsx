@@ -1,14 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import TickIcon from './Assets/Group 1000010348.png'
 import EditBtn from './Assets/Group 1000010360.png'
 import DeleteBtn from './Assets/Group 1000010359.png'
+import DownArrow from './Assets/chevron-down.png'
 import './style.css'
 
 const OrderDetails = () => {
+  const [showDropdown, setShowDropdown] = useState(false)
+  const [status, setStatus] = useState('Ready to serve')
+
+  const statusOptions = [
+    'Ready to serve',
+    'In Progress',
+    'Ready for pick-up',
+    'Preparing your meal'
+  ]
+
+  const badgeLabelMap = {
+    'Preparing your meal': 'In Progress',
+    'Ready to serve': 'Ready',
+    'Ready for pick-up': 'Completed',
+    'In Progress': 'Preparing'
+  }
+
   return (
     <div className="orderDetailsContainer">
       <div className="orderDetailsBox">
-        <div className="headerContainer">
+        <div className="headerContainerOrder">
           <div className="headerBox">
             <div className="upperInfo">
               <div className="numberAndNameBox">
@@ -22,10 +40,32 @@ const OrderDetails = () => {
               </div>
               <div className="readyOrNotInfo">
                 <span className="readyBadge">
-                  <img src={TickIcon} alt="Ready" className="tickIcon" />
-                  Ready
+                  <img src={TickIcon} alt={badgeLabelMap[status]} className="tickIcon" />
+                  {badgeLabelMap[status]}
                 </span>
-                <div className="readyValue">• Ready to serve</div>
+
+                <div className="readyDropdown">
+                  <div className="readyValue" onClick={() => setShowDropdown(!showDropdown)}>
+                    • {status}
+                    <img src={DownArrow} alt="DownArrow" className="downArrowIcon" />
+                  </div>
+                  {showDropdown && (
+                    <div className="dropdownMenu">
+                      {statusOptions.map((opt) => (
+                        <div
+                          key={opt}
+                          className="dropdownItem"
+                          onClick={() => {
+                            setStatus(opt)
+                            setShowDropdown(false)
+                          }}
+                        >
+                          {opt}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
             <div className="dateAndTimeBox">
