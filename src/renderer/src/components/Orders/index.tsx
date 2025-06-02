@@ -1,101 +1,46 @@
-import React, { useState, useEffect } from 'react'
-import './style.css'
+import React, { useState } from 'react'
 import Edit from './Assets/basil_edit-outline.png'
 import Delete from './Assets/fluent_delete-48-regular.png'
-import Printer from './Assets/Frame 1321315357.png'
-import DownArrow from './Assets/icon-park-outline_down.png'
 import DownArrow2 from './Assets/icon-park-outline_down (1).png'
-
-type OrderItem = {
-  id: number | string
-  name: string
-  price: string
-}
+import './style.css'
 
 type OrdersProps = {
-  orderItems: OrderItem[]
-  quantities: Record<string, number>
-  setQuantities: React.Dispatch<React.SetStateAction<Record<string, number>>>
+  orderItems: any[]
+  setOrderItems: React.Dispatch<React.SetStateAction<any[]>>
   onRemoveItem: (itemId: string | number) => void
 }
 
-const Orders = ({ orderItems, quantities, setQuantities, onRemoveItem }: OrdersProps) => {
-  const safeOrderItems = orderItems || []
-  // const [quantities, setQuantities] = useState<Record<string, number>>({})
+const Orders = ({ orderItems, setOrderItems, onRemoveItem }: OrdersProps) => {
   const [showTableDropdown, setShowTableDropdown] = useState(false)
-  const [selectedOrderTypes, setSelectedOrderTypes] = useState<string[]>([])
+  // const [selectedOrderTypes, setSelectedOrderTypes] = useState<string[]>([])
+  const [selectedOrderType, setSelectedOrderType] = useState<string | null>(null)
 
+  // const handleOrderTypeClick = (type: string) => {
+  //   setSelectedOrderTypes((prev) =>
+  //     prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
+  //   )
+  // }
   const handleOrderTypeClick = (type: string) => {
-    setSelectedOrderTypes(
-      (prevTypes) =>
-        prevTypes.includes(type)
-          ? prevTypes.filter((t) => t !== type) // remove if already selected
-          : [...prevTypes, type] // add if not selected
-    )
+    setSelectedOrderType((prev) => (prev === type ? null : type))
   }
-
-  // useEffect(() => {
-  //   const initialQuantities: Record<string, number> = {}
-  //   safeOrderItems.forEach((item) => {
-  //     const idKey = item.id.toString()
-  //     initialQuantities[idKey] = quantities[idKey] ?? 1
-  //   })
-  //   setQuantities(initialQuantities)
-  // }, [safeOrderItems])
-  useEffect(() => {
-    setQuantities((prevQuantities) => {
-      const newQuantities = { ...prevQuantities }
-      safeOrderItems.forEach((item) => {
-        const idKey = item.id.toString()
-        if (!(idKey in newQuantities)) {
-          newQuantities[idKey] = 1 // ← only set to 1 if it doesn’t exist
-        }
-      })
-      return newQuantities
-    })
-  }, [safeOrderItems])
 
   const handleQuantityChange = (itemId: string | number, operation: 'increment' | 'decrement') => {
-    const idKey = itemId.toString()
-
-    setQuantities((prevState) => {
-      const currentQuantity = prevState[idKey] ?? 1
-
-      if (operation === 'decrement') {
-        if (currentQuantity <= 1) {
-          // Call the onRemoveItem callback to remove the item from orderItems
-          onRemoveItem(itemId)
-        } else {
-          return { ...prevState, [idKey]: currentQuantity - 1 }
-        }
-      } else if (operation === 'increment') {
-        return { ...prevState, [idKey]: currentQuantity + 1 }
-      }
-
-      return prevState
+    setOrderItems((prevItems) => {
+      return prevItems
+        .map((item) => {
+          if (item.item_id === itemId) {
+            const newQuantity = operation === 'increment' ? item.quantity + 1 : item.quantity - 1
+            return { ...item, quantity: newQuantity }
+          }
+          return item
+        })
+        .filter((item) => item.quantity > 0) // Remove item if quantity is 0
     })
   }
 
-  // const handleQuantityChange = (itemId: string | number, operation: 'increment' | 'decrement') => {
-  //   const idKey = itemId.toString()
-  //   setQuantities((prevState) => {
-  //     const currentQuantity = prevState[idKey] ?? 1
-  //     const newQuantity =
-  //       operation === 'increment'
-  //         ? currentQuantity + 1
-  //         : currentQuantity > 1
-  //           ? currentQuantity - 1
-  //           : 1
-  //     return { ...prevState, [idKey]: newQuantity }
-  //   })
-  // }
-
-  const handleEditPrice = () => {
-    console.log('edit price btn clicked')
-  }
-
-  const handleDeleteItem = () => {
-    console.log('delete item btn clicked')
+  const handleEditPrice = (item: any) => {
+    console.log('Edit price for item:', item)
+    // Add modal or inline edit here
   }
 
   return (
@@ -103,7 +48,7 @@ const Orders = ({ orderItems, quantities, setQuantities, onRemoveItem }: OrdersP
       <button className="tableNo" onClick={() => setShowTableDropdown((prev) => !prev)}>
         <div className="tableNumber">Table No: 1</div>
         <div className="downArrow">
-          <img src={DownArrow2} alt="down arrow" />
+          <img src={DownArrow2} />
         </div>
       </button>
       {showTableDropdown && (
@@ -118,24 +63,17 @@ const Orders = ({ orderItems, quantities, setQuantities, onRemoveItem }: OrdersP
         <div className="orderContent">
           Orders #34562
           <div className="orderTypes">
-            <button
-              className={`dineIn ${selectedOrderTypes.includes('dineIn') ? 'active' : ''}`}
-              onClick={() => handleOrderTypeClick('dineIn')}
-            >
-              <div className="dineInValue">Dine In</div>
-            </button>
-            <button
-              className={`pickUp ${selectedOrderTypes.includes('pickUp') ? 'active' : ''}`}
-              onClick={() => handleOrderTypeClick('pickUp')}
-            >
-              <div className="pickUpValue">Pick Up</div>
-            </button>
-            <button
-              className={`delivery ${selectedOrderTypes.includes('delivery') ? 'active' : ''}`}
-              onClick={() => handleOrderTypeClick('delivery')}
-            >
-              <div className="deliveryValue">Delivery</div>
-            </button>
+            {['dineIn', 'pickUp', 'delivery'].map((type) => (
+              <button
+                key={type}
+                className={`${type} ${selectedOrderType === type ? 'active' : ''}`}
+                onClick={() => handleOrderTypeClick(type)}
+              >
+                <div className={`${type}Value`}>
+                  {type === 'dineIn' ? 'Dine In' : type === 'pickUp' ? 'Pick Up' : 'Delivery'}
+                </div>
+              </button>
+            ))}
           </div>
           <div className="orders">
             <div className="header">
@@ -147,26 +85,33 @@ const Orders = ({ orderItems, quantities, setQuantities, onRemoveItem }: OrdersP
             </div>
 
             <div className="orderValues">
-              {safeOrderItems.map((order, index) => {
-                const idKey = order.id.toString()
-                const quantity = quantities[idKey] ?? 1
+              {orderItems.map((item, index) => {
+                const quantity = item.quantity || 1
+                const itemPrice = parseFloat(item.price as string) || 0
+                const total = quantity * itemPrice
+
                 return (
                   <div
-                    key={order.id}
+                    key={item.item_id}
                     className="item"
                     style={{ backgroundColor: index % 2 === 0 ? '#F2F2F2' : 'transparent' }}
                   >
                     <div className="itemName">
-                      <div>{order.name}</div>
+                      <div>{item.item_name}</div>
                       <div>
-                        Price: {order.price} <img src={Edit} alt="edit" onClick={handleEditPrice} />
+                        Price: ₹{itemPrice}
+                        <img
+                          src={Edit}
+                          className="editIcon"
+                          onClick={() => handleEditPrice(item)}
+                        />
                       </div>
                     </div>
 
                     <div className="itemQuantity">
                       <div
                         className="minus"
-                        onClick={() => handleQuantityChange(order.id, 'decrement')}
+                        onClick={() => handleQuantityChange(item.item_id, 'decrement')}
                       >
                         -
                       </div>
@@ -175,16 +120,20 @@ const Orders = ({ orderItems, quantities, setQuantities, onRemoveItem }: OrdersP
                       </div>
                       <div
                         className="plus"
-                        onClick={() => handleQuantityChange(order.id, 'increment')}
+                        onClick={() => handleQuantityChange(item.item_id, 'increment')}
                       >
                         +
                       </div>
                     </div>
 
                     <div className="totalPrice">
-                      <div className="totalPriceValue">{quantity * parseInt(order.price)} RS</div>
+                      <div className="totalPriceValue">{total.toFixed(2)} ₹</div>
                       <div className="deleteItem">
-                        <img src={Delete} alt="delete" onClick={handleDeleteItem} />
+                        <img
+                          src={Delete}
+                          className="deleteIcon"
+                          onClick={() => onRemoveItem(item.item_id)}
+                        />
                       </div>
                     </div>
                   </div>
@@ -199,115 +148,3 @@ const Orders = ({ orderItems, quantities, setQuantities, onRemoveItem }: OrdersP
 }
 
 export default Orders
-
-// import Sidebar from '../Sidebar'
-// import Title from '../Title'
-// import Orders from '../Orders'
-// import BillDetails from '../BillDetails'
-// import CategoryList from '../CategoryList'
-// import ItemList from '../ItemList'
-// import ParentComponent from '../CategoryItemSection/ParentComponent'
-
-// function Layout(): React.JSX.Element {
-//   return (
-//     <div
-//       style={{
-//         display: 'flex',
-//         height: '100vh',
-//         overflow: 'hidden',
-//         border: '1px solid red',
-//         backgroundColor: '#fffdf7'
-//       }}
-//     >
-//       <Sidebar />
-
-//       {/* Main content container with horizontal scroll fallback */}
-//       <div
-//         style={{
-//           display: 'flex',
-//           flex: 1,
-//           overflowX: 'auto',
-//           height: '100%'
-//         }}
-//       >
-//         {/* Left: Title + Category + Items */}
-//         <div
-//           style={{
-//             display: 'flex',
-//             flexDirection: 'column',
-//             flex: '1 1 0%',
-//             height: '100%',
-//             minWidth: '0' // Important to allow flex shrinking
-//           }}
-//         >
-//           <div style={{ height: '70px', flexShrink: 0, minWidth: 0, overflow: 'hidden' }}>
-//             <Title />
-//           </div>
-
-//           <div
-//             style={{
-//               display: 'flex',
-//               flex: 1,
-//               overflow: 'hidden',
-//               // gap: '16px',
-//               padding: '16px',
-//               minWidth: 0 // prevents overflow due to flex children
-//             }}
-//           >
-//             {/* Category List */}
-//             <div
-//               style={{
-//                 display: 'flex',
-//                 flex: 1,
-//                 overflow: 'hidden',
-//                 minWidth: 0
-//               }}
-//             >
-//               <ParentComponent />
-//             </div>
-//           </div>
-//         </div>
-
-//         {/* Right: Orders + BillDetails */}
-//         <div
-//           style={{
-//             flex: '0 0 36%',
-//             // minWidth: '280px',
-//             minWidth: '200px',
-//             // maxWidth: '650px',
-//             display: 'flex',
-//             flexDirection: 'column',
-//             padding: '12px',
-//             borderLeft: '1px solid #ddd',
-//             overflow: 'hidden'
-//           }}
-//         >
-//           <div
-//             style={{
-//               flex: 1,
-//               overflowY: 'hidden',
-//               // borderBottom: '1px solid #ddd',
-//               // paddingBottom: '12px',
-//               // paddingRight: '16px',
-//               boxSizing: 'border-box',
-//               minHeight: 0 // ensure proper vertical overflow
-//             }}
-//           >
-//             <Orders />
-//           </div>
-
-//           <div
-//             style={{
-//               flexShrink: 0,
-//               paddingTop: '16px'
-//             }}
-//           >
-//             <BillDetails />
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
-
-// export default Layout

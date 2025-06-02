@@ -1,19 +1,17 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
-import { join } from 'path'
-import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-import icon from '../../resources/icon.png?asset'
+import { electronApp, is, optimizer } from '@electron-toolkit/utils'
+import { app, BrowserWindow, ipcMain, shell } from 'electron'
+import net from 'net'
+import path, { join } from 'path'
 
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
-    show: false,
-    autoHideMenuBar: true,
-    ...(process.platform === 'linux' ? { icon } : {}),
+    width: 1000,
+    height: 800,
     webPreferences: {
-      preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
+      preload: path.join(__dirname, '../preload/index.js'),
+      contextIsolation: true,
+      nodeIntegration: false
     }
   })
 
@@ -26,8 +24,6 @@ function createWindow(): void {
     return { action: 'deny' }
   })
 
-  // HMR for renderer base on electron-vite cli.
-  // Load the remote URL for development or the local html file for production.
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
   } else {
@@ -35,16 +31,9 @@ function createWindow(): void {
   }
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron')
 
-  // Default open or close DevTools by F12 in development
-  // and ignore CommandOrControl + R in production.
-  // see https://github.com/alex8088/electron-toolkit/tree/master/packages/utils
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)
   })
@@ -55,15 +44,19 @@ app.whenReady().then(() => {
   createWindow()
 
   app.on('activate', function () {
-    // On macOS it's common to re-create a window in the app when the
-    // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
+  const win = new BrowserWindow({
+    webPreferences: {
+      preload: path.join(__dirname, '../preload/index.ts'), // Ensure this path is correct!
+      contextIsolation: true,
+      nodeIntegration: false
+    }
+  })
+
+  win.loadURL('file://' + __dirname + '/index.html')
 })
 
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
@@ -72,3 +65,81 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+// ipcMain.handle('print-receipt', async (_, printerIP: string) => {
+//   try {
+//     let printer = new ThermalPrinter({
+//       type: PrinterTypes.EPSON,
+//       interface: `tcp://${printerIP}`, // 🛜 Use the IP from React!
+//       characterSet: CharacterSet.SLOVENIA,
+//       removeSpecialCharacters: false,
+//       lineCharacter: '-',
+//       options: {
+//         timeout: 5000
+//       }
+//     })
+
+//     printer.alignCenter()
+//     printer.println('🧾 YOUR STORE')
+//     printer.drawLine()
+//     printer.alignLeft()
+//     printer.println('Item A             10.00')
+//     printer.println('Item B              5.00')
+//     printer.drawLine()
+//     printer.println('TOTAL             15.00')
+//     printer.newLine()
+//     printer.println('Thank You!')
+//     printer.cut()
+
+//     const isConnected = await printer.isPrinterConnected()
+//     if (!isConnected) {
+//       throw new Error('Printer not connected!')
+//     }
+
+//     await printer.execute()
+//     return { success: true }
+//   } catch (err: any) {
+//     console.error('Print Error:', err)
+//     return { success: false, error: err.message }
+//   }
+// })
+
+// ipcMain.handle('print:send-raw-data', async (_, printerIP: string, rawData: Uint8Array) => {
+//   console.log('🚀 ~ ipcMain.handle ~ rawData:', rawData)
+//   try {
+//     const client = new net.Socket()
+
+//     return new Promise((resolve, reject) => {
+//       client.connect(9100, printerIP, () => {
+//         client.write(rawData)
+//         client.end()
+//         resolve({ success: true })
+//       })
+
+//       client.on('error', (err) => {
+//         console.error('TCP Send Error:', err)
+//         reject({ success: false, error: err.message })
+//       })
+//     })
+//   } catch (err: any) {
+//     console.error('Send Error:', err)
+//     return { success: false, error: err?.message }
+//   }
+// })
+
+ipcMain.handle('print:send-raw-data', async (_event, printerIP, rawData) => {
+  return new Promise((resolve) => {
+    const client = new net.Socket()
+
+    client.connect(9100, printerIP, () => {
+      client.write(Buffer.from(rawData))
+      client.end()
+      resolve({ success: true })
+    })
+
+    client.on('error', (err) => {
+      // ✅ Return plain object with string
+      resolve({ success: false, error: err.message || 'Unknown error' })
+    })
+  })
+})

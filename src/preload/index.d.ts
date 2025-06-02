@@ -1,8 +1,15 @@
-import { ElectronAPI } from '@electron-toolkit/preload'
+export {}
 
 declare global {
   interface Window {
-    electron: ElectronAPI
-    api: unknown
+    electronAPI: {
+      sendRawDataToPrinter: (
+        printerIP: string,
+        rawData: Uint8Array
+      ) => Promise<{
+        success: boolean
+        error?: string
+      }>
+    }
   }
 }

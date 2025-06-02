@@ -20,8 +20,8 @@ const Header = () => {
         </button>
         <div className="searchBarContainer">
           <div className="searchBarBox">
-            <img src={SearchIcon} />
-            <div className="searchBarValue">Search for food name</div>
+            <img src={SearchIcon} alt="Search" />
+            <input type="text" className="searchBarInput" placeholder="Search for food name" />
           </div>
         </div>
       </div>

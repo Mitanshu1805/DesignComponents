@@ -1,64 +1,67 @@
-// import React from 'react'
 import './style.css'
-import CalenderIcon from './Assets/food-bag-svgrepo-com 1.png'
-const BillDetails = () => {
+
+type OrderItem = {
+  item_id: number | string
+  item_name: string
+  price?: number
+  quantity: number
+}
+
+type Props = {
+  orderItems: OrderItem[]
+  createOrder: (orderData: {
+    items: { item_id: string | number; quantity: number }[]
+    type: string
+  }) => void
+}
+
+const BillDetails = ({ orderItems, createOrder }: Props) => {
+  const calculateTotal = () => {
+    return orderItems.reduce((total, item) => {
+      const price = parseFloat(item.price as any) || 0
+      const quantity = item.quantity || 0
+      return total + price * quantity
+    }, 0)
+  }
+
+  const grandTotal = calculateTotal()
+
+  const buildOrderData = (type: string) => {
+    const items = orderItems.map((item) => ({
+      item_id: item.item_id,
+      quantity: item.quantity || 1
+    }))
+
+    return {
+      type,
+      items
+    }
+  }
+
   return (
-    // <div className="billDetails">
-    //   Bill Details
-    //   <div className="contentBox">
-    //     <div className="content">
-    //       <div className="detailsBox">
-    //         <div className="details">
-    //           <div className="itemTotal">
-    //             <div className="itemTotalBox">
-    //               <img src={CalenderIcon} alt="icon" />
-    //               <div className="itemTotalValue">Item Total</div>
-    //             </div>
-    //             <div className="price">$20</div>
-    //           </div>
-    //           <div className="itemTotal">
-    //             <div className="itemTotalBox">
-    //               <img src={CalenderIcon} alt="icon" />
-    //               <div className="itemTotalValue">GST And Restaurant Charge</div>
-    //             </div>
-    //             <div className="price">$20</div>
-    //           </div>
-    //           <div className="itemTotal">
-    //             <div className="itemTotalBox">
-    //               <img src={CalenderIcon} alt="icon" />
-    //               <div className="itemTotalValue">Delivery Charge</div>
-    //             </div>
-    //             <div className="price">$20</div>
-    //           </div>
-    //           <div className="itemTotal grandTotalRow">
-    //             <div className="itemTotalBox">
-    //               <div className="itemTotalValue">Grand Total</div>
-    //             </div>
-    //             <div className="price">$200</div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    //   <div className="sentToKOIBox">
-    //     <div className="sentToKOI">Sent To KOI</div>
-    //   </div>
-    // </div>
     <div className="billDetailsContainer">
       <div className="billDetailsTitle">Bill Details</div>
 
       <div className="grandTotalContainer">
         <div className="grandTotalBox">
           <div className="grandTotalText">Grand Total</div>
-          <div className="grandTotalPrice">$200</div>
+          <div className="grandTotalPrice">₹{grandTotal.toFixed(2)}</div>
         </div>
       </div>
 
       <div className="buttonGroup">
-        <button className="billButton">KOT</button>
-        <button className="billButton">KOT & Print</button>
-        <button className="billButton">Save</button>
-        <button className="billButton">Save & Print</button>
+        <button className="billButton" onClick={() => createOrder(buildOrderData('KOT'))}>
+          KOT
+        </button>
+        <button className="billButton" onClick={() => createOrder(buildOrderData('KOT_PRINT'))}>
+          KOT & Print
+        </button>
+        <button className="billButton" onClick={() => createOrder(buildOrderData('SAVE'))}>
+          Save
+        </button>
+        <button className="billButton" onClick={() => createOrder(buildOrderData('SAVE_PRINT'))}>
+          Save & Print
+        </button>
       </div>
     </div>
   )

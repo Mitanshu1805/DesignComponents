@@ -259,7 +259,7 @@
 
 .orderValues {
   width: 495px;
-  height: 354px;
+  /* height: 354px; */
   /* height: 655px; */
   overflow-y: auto;
   display: flex;
@@ -347,7 +347,7 @@
   padding-left: 10px;
 }
 .valueBox {
-  width: 28.000001907348633px;
+  width: 60.000001907348633px;
   height: 22px;
   gap: 9px;
   display: flex;
@@ -362,6 +362,9 @@
   line-height: 136%;
   letter-spacing: 0%;
   color: #333f4c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .plus {
   cursor: pointer;

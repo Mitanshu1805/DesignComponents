@@ -3,11 +3,13 @@ import TickIcon from './Assets/Group 1000010348.png'
 import EditBtn from './Assets/Group 1000010360.png'
 import DeleteBtn from './Assets/Group 1000010359.png'
 import DownArrow from './Assets/chevron-down.png'
+import GenerateBillPanel from './GenerateBillPanel'
 import './style.css'
 
 const OrderDetails = () => {
   const [showDropdown, setShowDropdown] = useState(false)
   const [status, setStatus] = useState('Ready to serve')
+  const [showBillPanel, setShowBillPanel] = useState(false)
 
   const statusOptions = [
     'Ready to serve',
@@ -22,6 +24,8 @@ const OrderDetails = () => {
     'Ready for pick-up': 'Completed',
     'In Progress': 'Preparing'
   }
+
+  console.log('showBillPanel:', showBillPanel)
 
   return (
     <div className="orderDetailsContainer">
@@ -114,7 +118,7 @@ const OrderDetails = () => {
         </div>
 
         <div className="subTotalContainer">
-          <div className="subTotalHead">Sub Total</div>
+          <div className="subTotalHead">SubTotal</div>
           <div className="subTotalValue">$649</div>
         </div>
 
@@ -125,9 +129,18 @@ const OrderDetails = () => {
           <button className="iconBtn">
             <img src={DeleteBtn} alt="Delete" />
           </button>
-          <button className="generateBillBtn">Generate Bill</button>
+          <button
+            className="generateBillBtn"
+            onClick={() => {
+              console.log('Clicked Generate Bill')
+              setShowBillPanel(true)
+            }}
+          >
+            Generate Bill
+          </button>
         </div>
       </div>
+      {showBillPanel && <GenerateBillPanel onClose={() => setShowBillPanel(false)} />}
     </div>
   )
 }

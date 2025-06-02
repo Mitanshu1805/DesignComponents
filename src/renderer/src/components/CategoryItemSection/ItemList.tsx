@@ -16,7 +16,7 @@ const ItemList = ({ items, onItemClick }) => {
               {items.map((item, index) => (
                 <div className="menuItemCard" key={index}>
                   <div className="menuItemImage" onClick={() => onItemClick(item)}>
-                    <img src={item.image || OilDabeli} alt={item.name} />
+                    <img src={item.image || OilDabeli} />
                   </div>
                   <div className="menuItemDetails">
                     <div className="menuItemName">{item.name}</div>
@@ -28,7 +28,7 @@ const ItemList = ({ items, onItemClick }) => {
           )}
 
           <div className="clearButtonWrapper">
-            <img src={ClearBtn} alt="Clear" />
+            <img src={ClearBtn} />
           </div>
         </div>
       </div>

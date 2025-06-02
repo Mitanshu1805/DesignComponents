@@ -1,23 +1,29 @@
-// import React from "react";
-import './style.css'
 import SearchIcon from './Assets/Left Icon.png'
+import './style.css'
 
-const Title = () => {
+type TitleProps = {
+  searchQuery: string
+  setSearchQuery: (query: string) => void
+}
+
+const Title = ({ searchQuery, setSearchQuery }: TitleProps) => {
   return (
-    <div>
-      <div className="title">
-        <div className="titleHeading">
-          <div className="headingName">Jaegar Resto</div>
-          <div className="titleDate">Tuesday, 2 Feb 2021</div>
+    <div className="title">
+      <div className="titleHeading">
+        <div className="headingName">Jaegar Resto</div>
+        <div className="titleDate">{new Date().toDateString()}</div>
+      </div>
+      <div className="searchbar">
+        <div className="searchIcon">
+          <img src={SearchIcon} />
         </div>
-        <div className="searchbar">
-          <div className="searchIcon">
-            <img src={SearchIcon} alt="Search Icon" />
-          </div>
-
-          {/* <div className="searchSpace">Search for food name</div> */}
-          <input type="text" placeholder="Search for food name" className="searchInput" />
-        </div>
+        <input
+          type="text"
+          placeholder="Search for food name"
+          className="searchInput"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
       </div>
     </div>
   )

@@ -97,12 +97,29 @@
   align-items: center;
 }
 
+.searchBarInput {
+  border: none;
+  outline: none;
+  padding: 8px;
+  font-size: 14px;
+  background: transparent;
+  color: #333;
+}
+
 .searchBarBox {
+  display: flex;
+  align-items: center;
+  /* background-color: #f1f1f1; */
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+/* .searchBarBox {
   display: flex;
   align-items: center;
   gap: 10px;
   width: 100%;
-}
+} */
 
 .searchIcon {
   width: 20px;

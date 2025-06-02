@@ -3,6 +3,7 @@ import Sidebar from '../Sidebar'
 import TopLeftOrder from '../TopLeftOrder'
 import Header from '../Header'
 import OrderDetails from '../OrderDetailsBox'
+// import TableOrders from
 import './layout.css'
 
 function Layout(): React.JSX.Element {

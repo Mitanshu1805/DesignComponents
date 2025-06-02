@@ -34,8 +34,7 @@ const ParentComponent = () => {
   const [orderItems, setOrderItems] = useState<Item[]>([])
 
   const handleItemClick = (item) => {
-    setOrderItems((prevOrder) => [...prevOrder, item]) // add item to order list
-    console.log('order items:>>', orderItems)
+    setOrderItems((prevOrder) => [...prevOrder, item])
   }
 
   return (

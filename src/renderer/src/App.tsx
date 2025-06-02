@@ -1,105 +1,69 @@
-// import Versions from './components/Versions'
-// import electronLogo from './assets/electron.svg'
-import Sidebar from './components/Sidebar'
-import Title from './components/Title'
-import Orders from './components/Orders'
-import BillDetails from './components/BillDetails'
-import CategoryList from './components/CategoryList'
-import ItemList from './components/ItemList'
-import Layout from './components/Layout/index'
-import OrdersLayout from './ordersPageComp/Layout'
+import { HashRouter, Routes, Route } from 'react-router-dom'
+import LoginController from './pages/Login/LoginController'
+import OtpController from './pages/OTP/OtpController'
+import BusinessListController from './pages/BusinessList/BusinessListController'
+import OutletController from './pages/OutletList/OutletListController'
+import AddTerminalController from './pages/AddTerminal/AddTerminalController'
+import HomeController from './pages/Home/HomeController'
+import OrderController from './pages/Orders/OrdersController'
+import TableOrderController from './pages/TableOrders/TableOrdersController'
 
-function App(): React.JSX.Element {
+export default function App() {
   return (
-    // <Orders />
-    // <BillDetails />
-    // <CategoryList />
-    // <ItemList />
-    // <Layout />
-    <OrdersLayout />
-    // <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', border: '1px solid red' }}>
-    //   <Sidebar />
-
-    //   <div style={{ display: 'flex', flex: 1, overflow: 'hidden', height: '100%' }}>
-    //     {/* Left: Title + Category + Items */}
-    //     <div style={{ display: 'flex', flexDirection: 'column', flex: 1.4, height: '100%' }}>
-    //       <div style={{ height: '60px', flexShrink: 0 }}>
-    //         <Title />
-    //       </div>
-
-    //       <div
-    //         style={{
-    //           display: 'flex',
-    //           flex: 1,
-    //           overflow: 'hidden',
-    //           gap: '16px',
-    //           padding: '16px'
-    //         }}
-    //       >
-    //         <div
-    //           style={{
-    //             // width: '145px',
-    //             // minWidth: '140px',
-    //             // background: '#f1f1f1',
-    //             borderRadius: '10px',
-    //             // padding: '8px',
-    //             overflowY: 'auto',
-    //             flexShrink: 0
-    //             // height: '100%'
-    //           }}
-    //         >
-    //           <div>
-    //             <CategoryList />
-    //           </div>
-    //         </div>
-
-    //         <div
-    //           style={{
-    //             flex: 1,
-    //             display: 'flex',
-    //             flexDirection: 'column',
-    //             overflow: 'hidden'
-    //           }}
-    //         >
-    //           <div style={{ flex: 1 }}>
-    //             <ItemList />
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-
-    //     {/* Right: Orders + BillDetails */}
-    //     <div
-    //       style={{
-    //         flex: 0.8,
-    //         display: 'flex',
-    //         flexDirection: 'column',
-
-    //         padding: '12px',
-    //         borderLeft: '1px solid #ddd'
-    //         // overflow: 'hidden'
-    //       }}
-    //     >
-    //       <div
-    //         style={{
-    //           flex: 1,
-    //           overflowY: 'auto',
-    //           borderBottom: '1px solid #ddd',
-    //           paddingBottom: '12px',
-    //           paddingRight: '16px'
-    //           // background: '#f9f9f9'
-    //         }}
-    //       >
-    //         <Orders />
-    //       </div>
-
-    //       <div style={{ flexShrink: 0, paddingTop: '16px' }}>
-    //         <BillDetails />
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
+    <HashRouter>
+      <Routes>
+        <Route path="/" element={<LoginController />} />
+        <Route path="/otp" element={<OtpController />} />
+        <Route path="/businessList" element={<BusinessListController />} />
+        <Route path="/outletList" element={<OutletController />} />
+        <Route path="/addTerminal" element={<AddTerminalController />} />
+        <Route path="/home" element={<HomeController />} />
+        <Route path="/ordersPage" element={<OrderController />} />
+        <Route path="/tableOrders" element={<TableOrderController />} />
+      </Routes>
+    </HashRouter>
   )
 }
 
-export default App
+// import { useState } from 'react'
+// import { Cut, Line, Printer, render, Row, Text } from 'react-thermal-printer'
+
+// declare global {
+//   interface Window {
+//     electronAPI: {
+//       sendRawDataToPrinter: (
+//         printerIP: string,
+//         rawData: Uint8Array
+//       ) => Promise<{ success: boolean; error?: string }>
+//     }
+//   }
+// }
+
+// function App() {
+//   const [printerIP, setPrinterIP] = useState('192.168.23.6')
+
+//   return (
+//     <div style={{ padding: 50 }}>
+//       <h1>🖨️ Print via React</h1>
+
+//       <input
+//         type="text"
+//         value={printerIP}
+//         onChange={(e) => setPrinterIP(e.target.value)}
+//         placeholder="Enter Printer IP (e.g., 192.168.1.100)"
+//         style={{ padding: '10px', fontSize: '16px', width: '300px', marginBottom: '20px' }}
+//       />
+
+//       <br />
+
+//       <button
+//         onClick={handlePrint}
+//         style={{ padding: '15px 30px', fontSize: '20px', background: 'black', color: 'white' }}
+//       >
+//         Print Receipt
+//       </button>
+//     </div>
+//   )
+// }
+
+// export default App

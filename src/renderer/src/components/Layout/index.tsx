@@ -1,122 +1,167 @@
-import React, { useState } from 'react'
-import Sidebar from '../Sidebar'
-import Title from '../Title'
-import Orders from '../Orders'
+/* eslint-disable prettier/prettier */
+import React, { useState, useMemo, useEffect } from 'react'
 import BillDetails from '../BillDetails'
 import CategoryList from '../CategoryList'
 import ItemList from '../ItemList'
-import ParentComponent from '../CategoryItemSection/ParentComponent'
+import Orders from '../Orders'
+import Sidebar from '../Sidebar'
+import Title from '../Title'
+import { OrderAPIs } from '@renderer/networking/orderApis'
+import moment from 'moment'
+import { Cut, Line, Printer, render, Row, Text } from 'react-thermal-printer'
 
-type Item = {
-  id: number
-  name: string
-  price: string
-  categoryId: number
+type LayoutProps = {
+  menuData: any[]
 }
-const allItems = [
-  { id: 1, name: 'Dabeli Special', price: '15', categoryId: 1 },
-  { id: 2, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
-  { id: 3, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
-  { id: 4, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
-  { id: 5, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
-  { id: 6, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
-  { id: 7, name: 'Dabeli Cheese', price: '15', categoryId: 1 },
-  { id: 8, name: 'Vadapav Classic', price: '15', categoryId: 2 },
-  { id: 9, name: 'Vadapav Classic', price: '15', categoryId: 2 },
-  { id: 10, name: 'Vadapav Classic', price: '15', categoryId: 2 },
-  { id: 11, name: 'Vadapav Classic', price: '15', categoryId: 2 }
 
-  // Add more items if you want
-]
+function Layout({ menuData }: LayoutProps): React.JSX.Element {
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | string | null>(null)
+  const [orderItems, setOrderItems] = useState<any[]>([])
+  const [searchQuery, setSearchQuery] = useState<string>('')
 
-function Layout(): React.JSX.Element {
-  const [selectedCategoryId, setSelectedCategoryId] = useState(1)
+  const createOrder = async (orderData) => {
+    const response = await OrderAPIs.createOrder(
+      moment.utc().toISOString(),
+      false,
+      'CASH',
+      orderData?.items
+    )
 
-  const filteredItems = allItems.filter((item) => item.categoryId === selectedCategoryId)
+    if (response) {
+      setOrderItems([])
+      handlePrint()
+    }
+  }
 
-  const [orderItems, setOrderItems] = useState<Item[]>([])
-  const [quantities, setQuantities] = useState<Record<string, number>>({})
+  useEffect(() => {
+    if (menuData.length > 0 && !selectedCategoryId) {
+      setSelectedCategoryId(menuData[0]?.category_id)
+    }
+  }, [menuData, selectedCategoryId])
+
+  const filteredItems = useMemo(() => {
+    const selectedCategory = menuData.find((cat) => cat.category_id === selectedCategoryId)
+    if (!selectedCategory) return []
+
+    const items = selectedCategory.items || []
+
+    if (!searchQuery.trim()) return items
+
+    return items.filter((item) =>
+      item?.item_name?.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  }, [menuData, selectedCategoryId, searchQuery])
+
+  const handleItemClick = (item: any) => {
+    setOrderItems((prev) => {
+      const existingItem = prev.find((i) => i.item_id === item.item_id)
+      if (existingItem) {
+        return prev.map((i) =>
+          i.item_id === item.item_id ? { ...i, quantity: i.quantity + 1 } : i
+        )
+      }
+      return [...prev, { ...item, quantity: 1 }]
+    })
+  }
 
   const handleRemoveItem = (itemId: string | number) => {
-    setOrderItems((prev) => prev.filter((item) => item.id !== itemId))
+    setOrderItems((prev) => prev.filter((item) => item.item_id !== itemId))
   }
 
   const handleClearItems = () => {
-    // Clear all items from orders list
     setOrderItems([])
-    setQuantities({})
   }
 
-  // const handleItemClick = (item) => {
-  //   setOrderItems((prevOrder) => [...prevOrder, item]) // add item to order list
-  //   console.log('order items:>>', orderItems)
-  // }
+  const handlePrint = async () => {
+    if (orderItems.length === 0) {
+      alert('🛒 No items to print.')
+      return
+    }
 
-  const handleItemClick = (item) => {
-    setOrderItems((prevOrder) => {
-      const exists = prevOrder.some((i) => i.id === item.id)
-      if (!exists) {
-        return [...prevOrder, item] // Add only once
-      }
-      return prevOrder // Do not duplicate
-    })
+    const total = orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
-    setQuantities((prevQuantities) => {
-      const idKey = item.id.toString()
-      return {
-        ...prevQuantities,
-        [idKey]: (prevQuantities[idKey] || 0) + 1
+    const receipt = (
+      <Printer type="epson">
+        {/* Header */}
+        <Text align="center" bold size={{ width: 2, height: 2 }}>
+          Awesome Cafe
+        </Text>
+        <Text align="center">-------------------------------</Text>
+        <Text align="center">{moment().format('YYYY-MM-DD HH:mm:ss')}</Text>
+        <Line />
+
+        {/* Column Headers */}
+        <Row left={'Item' + '                         Qty'} right="Amount(RS)" />
+        <Line />
+
+        {/* Order Items */}
+        {orderItems.map((item) => {
+          const name =
+            item.item_name.length > 16 ? item.item_name.substring(0, 16) : item.item_name.padEnd(16)
+
+          const qty = String(item.quantity).padStart(2)
+          const amount = (item.price * item.quantity).toFixed(2)
+
+          return (
+            <Row
+              key={item.item_id}
+              left={name}
+              center={'             ' + `${qty}`}
+              right={amount}
+            />
+          )
+        })}
+
+        <Line />
+
+        {/* Total and Footer */}
+        <Row left="TOTAL" right={`${total.toFixed(2)}`} />
+        <Text align="center">Thank you, visit again!</Text>
+        <Cut />
+      </Printer>
+    )
+
+    try {
+      const rawData: Uint8Array = await render(receipt)
+
+      const result = await window.electronAPI.sendRawDataToPrinter('192.168.23.6', rawData)
+
+      if (result.success) {
+        console.log('🖨️ Printed Successfully!')
+      } else {
+        alert('Print Failed: ' + result.error)
       }
-    })
+    } catch (error) {
+      console.error('Print Error:', error)
+      alert('Print Error: ' + error.message)
+    }
   }
 
-  // const [orderItems, setOrderItems] = useState<Item[]>([])
   return (
     <div
-      style={{
-        display: 'flex',
-        height: '100vh',
-        overflow: 'hidden',
-        border: '1px solid red',
-        backgroundColor: '#fffdf7'
-      }}
+      style={{ display: 'flex', height: '100vh', overflow: 'hidden', backgroundColor: '#fffdf7' }}
     >
       <Sidebar />
 
-      {/* Main content container with horizontal scroll fallback */}
-      <div
-        style={{
-          display: 'flex',
-          flex: 1,
-          overflowX: 'auto',
-          height: '100%'
-        }}
-      >
-        {/* Left: Title + Category + Items */}
+      <div style={{ display: 'flex', flex: 1, overflowX: 'auto', height: '100%' }}>
+        {/* Left Panel: Title + Categories + Items */}
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
             flex: '1 1 0%',
             height: '100%',
-            minWidth: '0' // Important to allow flex shrinking
+            minWidth: 0
           }}
         >
-          <div style={{ height: '70px', flexShrink: 0, minWidth: 0, overflow: 'hidden' }}>
-            <Title />
+          <div style={{ height: '70px', flexShrink: 0 }}>
+            <Title searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
           </div>
 
           <div
-            style={{
-              display: 'flex',
-              flex: 1,
-              overflow: 'hidden',
-              // gap: '16px',
-              padding: '16px',
-              minWidth: 0 // prevents overflow due to flex children
-            }}
+            style={{ display: 'flex', flex: 1, overflow: 'hidden', padding: '16px', minWidth: 0 }}
           >
-            {/* Category List */}
+            {/* Category + Item List */}
             <div style={{ display: 'flex', flex: 1, overflow: 'hidden', minWidth: 0 }}>
               <div
                 style={{
@@ -128,6 +173,7 @@ function Layout(): React.JSX.Element {
                 }}
               >
                 <CategoryList
+                  menuData={menuData}
                   selectedCategoryId={selectedCategoryId}
                   setSelectedCategoryId={setSelectedCategoryId}
                 />
@@ -139,7 +185,8 @@ function Layout(): React.JSX.Element {
                   display: 'flex',
                   flexDirection: 'column',
                   overflow: 'hidden',
-                  minWidth: 0
+                  minWidth: 0,
+                  overflowY: 'auto'
                 }}
               >
                 <ItemList
@@ -148,18 +195,15 @@ function Layout(): React.JSX.Element {
                   onClearItems={handleClearItems}
                 />
               </div>
-              {/* <Orders orderItems={orderItems || []} /> */}
             </div>
           </div>
         </div>
 
-        {/* Right: Orders + BillDetails */}
+        {/* Right Panel: Orders + Bill */}
         <div
           style={{
             flex: '0 0 36%',
-            // minWidth: '280px',
             minWidth: '200px',
-            // maxWidth: '650px',
             display: 'flex',
             flexDirection: 'column',
             padding: '12px',
@@ -167,33 +211,16 @@ function Layout(): React.JSX.Element {
             overflow: 'hidden'
           }}
         >
-          <div
-            style={{
-              flex: 1,
-              overflowY: 'hidden',
-              // borderBottom: '1px solid #ddd',
-              // paddingBottom: '12px',
-              // paddingRight: '16px',
-              boxSizing: 'border-box',
-              minHeight: 0 // ensure proper vertical overflow
-            }}
-          >
-            {/* <Orders orderItems={orderItems || []} /> */}
+          <div style={{ flex: 1, overflowY: 'auto', boxSizing: 'border-box', minHeight: 0 }}>
             <Orders
               orderItems={orderItems}
-              quantities={quantities}
-              setQuantities={setQuantities}
+              setOrderItems={setOrderItems}
               onRemoveItem={handleRemoveItem}
             />
           </div>
 
-          <div
-            style={{
-              flexShrink: 0,
-              paddingTop: '16px'
-            }}
-          >
-            <BillDetails />
+          <div style={{ flexShrink: 0, paddingTop: '16px' }}>
+            <BillDetails orderItems={orderItems} createOrder={createOrder} />
           </div>
         </div>
       </div>
